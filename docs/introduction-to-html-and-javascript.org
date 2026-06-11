@@ -136,8 +136,12 @@ Visual Studio Codeは、文章やプログラムを書くためのソフトウ�
 長い名前なので、以降は「VS Code」と呼びます。
 
 この文書で新しくインストールするものは、VS Codeだけです。
-ウェブブラウザは、パソコンに最初から入っているSafariまたはMicrosoft Edgeを使います。
-普段使っているGoogle ChromeやFirefoxなどがあれば、それを使ってもかまいません。
+ウェブブラウザは、Macに最初から入っているSafariまたはWindowsに最初から入っているMicrosoft Edgeを使えます。
+
+ウェブブラウザは、この2つだけではありません。
+Google ChromeやMozilla Firefoxなども、よく使われているウェブブラウザです。
+すでにどれかを普段使っているなら、そのブラウザを使ってかまいません。
+この文書で扱うHTML、CSS、JavaScriptは、いずれのブラウザでもほぼ同じように動きます。
 
 ** VS Codeをインストールする
 
@@ -372,4 +376,610 @@ VS Codeで書き換えただけでは、ブラウザが開いているファイ�
 - =index.html= をブラウザで開ける
 - HTMLを書き換えたあと、ブラウザを再読み込みして変化を確認できる
 
-次は、このHTMLファイルにJavaScriptを加えて、ブラウザにプログラムを実行させます。
+次は、HTMLで文章の構造をもう少し詳しく書いてみます。
+
+* HTMLで文章の構造を書く
+
+HTMLの役割は、文章の各部分が何であるかを示すことです。
+
+たとえば、 =h1= は最も大きな見出し、 =p= は段落を表していました。
+文字を単に大きくしたり、行を単に分けたりするのではなく、「ここは見出し」「ここは段落」と意味を示していることが大切です。
+
+** 見出しを階層にする
+
+見出しには =h1= から =h6= まであります。
+=h= の後ろの数字が小さいほど、大きなまとまりの見出しです。
+
+#+begin_src html
+<h1>私の好きなもの</h1>
+
+<h2>好きな食べ物</h2>
+<p>りんごが好きです。</p>
+
+<h2>好きな音楽</h2>
+<p>ピアノの曲をよく聴きます。</p>
+#+end_src
+
+=h1= は文書全体の題名に使います。
+=h2= は、その中にある章の見出しです。
+さらに小さな節が必要なら =h3= を使い、その下では =h4= 、 =h5= 、 =h6= と続けられます。
+
+見出しの数字は、文字の大きさを選ぶためのものではありません。
+文章の階層を表すためのものです。
+=h2= の次に、見た目が好みだからという理由だけで =h5= を使うのではなく、基本的には順番に使います。
+
+** 箇条書きを作る
+
+順番に意味がない箇条書きには =ul= を使います。
+箇条書きの一つ一つの項目は =li= で表します。
+
+#+begin_src html
+<h2>買うもの</h2>
+<ul>
+  <li>りんご</li>
+  <li>パン</li>
+  <li>牛乳</li>
+</ul>
+#+end_src
+
+=ul= は /unordered list/ 、つまり順序のないリストという意味です。
+
+手順や順位のように、順番に意味がある箇条書きには =ol= を使います。
+
+#+begin_src html
+<h2>朝の準備</h2>
+<ol>
+  <li>顔を洗う</li>
+  <li>朝ごはんを食べる</li>
+  <li>歯を磨く</li>
+</ol>
+#+end_src
+
+=ol= は /ordered list/ 、つまり順序のあるリストという意味です。
+ブラウザは、各項目の先頭に番号を付けて表示します。
+
+** リンクを作る
+
+ウェブページから別のページへ移動できるリンクを作ってみましょう。
+リンクには =a= タグを使います。
+
+#+begin_src html
+<p>
+  <a href="https://www.w3.org/">W3Cのウェブサイトを見る</a>
+</p>
+#+end_src
+
+=href= の後ろには、移動先のURLを書きます。
+ブラウザに表示される「W3Cのウェブサイトを見る」という文字をクリックすると、指定したページへ移動します。
+
+=href= のように、タグへ追加する情報を「属性」と呼びます。
+この例では、 =a= タグに =href= 属性を付けて、リンク先を指定しています。
+
+*** 文書からハイパーテキストへ
+
+紙の文書は、普通は最初から最後へ順番に読みます。
+一方、リンクのある文書では、読んでいる途中から関連する別の文書へ直接移動できます。
+
+このように、リンクによって複数の文書を結び付けたものを「ハイパーテキスト」と呼びます。
+HTMLという名前も /HyperText Markup Language/ の略です。
+
+1989年、CERNで働いていたTim Berners-Leeは、インターネット上の文書をリンクで結び、ブラウザでたどれるWorld Wide Web（WWW）を提案しました。
+ハイパーテキストという考え方は、それ以前からありました。
+それをインターネット、URL、HTMLなどと組み合わせ、世界中で利用できるウェブにしたことが革命的でした。
+
+一つのページが、世界中の別のページにつながるようになったのです。
+=a= タグは短いタグですが、ウェブをウェブらしくしている重要な仕組みです。
+
+- [[https://home.cern/science/computing/birth-web][CERN: The birth of the Web]]
+
+** 画像を表示する
+
+画像を表示するには =img= タグを使います。
+
+まず、表示したい画像を =index.html= と同じ =html-javascript= フォルダへ入れます。
+ここでは画像のファイル名を =photo.jpg= とします。
+
+#+begin_example
+html-javascript/
+├── index.html
+└── photo.jpg
+#+end_example
+
+=index.html= の =body= の中に、次の行を加えます。
+
+#+begin_src html
+<img src="photo.jpg" alt="公園に咲いている花">
+#+end_src
+
+=src= 属性には、表示する画像ファイルの名前を書きます。
+=alt= 属性には、画像が何を表しているかを文章で書きます。
+
+=alt= の文章は、画像を読み込めなかったときに表示されます。
+また、画面を音声で読み上げるソフトウェアを使う人にも、画像の内容を伝えます。
+「画像」や「写真」だけではなく、「公園に咲いている花」のように内容が分かる言葉を書きましょう。
+
+*** 自分で撮った写真を使う
+
+スマートフォンやデジタルカメラで自分が撮った写真も使えます。
+
+1. 写真をパソコンへ移します。
+2. 写真を =html-javascript= フォルダへ入れます。
+3. 分かりやすい半角英数字のファイル名にします。
+4. =img= タグの =src= に、そのファイル名を書きます。
+
+たとえば、ファイル名を =my-desk.jpg= にした場合は次のように書きます。
+
+#+begin_src html
+<img src="my-desk.jpg" alt="机の上に置いたパソコンとノート">
+#+end_src
+
+写真に他の人の顔、住所、名札などが写っている場合は、インターネットで公開してよいか注意してください。
+
+*** インターネット上の画像と著作権
+
+インターネットで見つけた画像は、何でも自由に使えるわけではありません。
+画像を作った人や写真を撮った人には、著作権があります。
+
+Google画像検索には、利用条件で検索結果を絞り込む機能があります。
+画像を検索したあと、「ツール」から「ライセンス」を選びます。
+「クリエイティブ・コモンズ ライセンス」などに絞り込むと、再利用できる条件が示された画像を探しやすくなります。
+
+ただし、検索結果に表示されたという理由だけで、自由に使えると判断してはいけません。
+画像を選んだら、元のウェブサイトと「ライセンスの詳細」を開き、次の条件を確認してください。
+
+- 作者名や出典を書く必要があるか
+- 画像を加工してよいか
+- 商用目的で使ってよいか
+- 同じライセンスで公開する必要があるか
+
+Creative Commonsの画像も、ライセンスの種類によって条件が異なります。
+多くの場合、作者名、画像の出典、ライセンスを表示する必要があります。
+条件がよく分からない場合は、自分で撮った写真や、先生から指定された画像を使うのが確実です。
+
+- [[https://support.google.com/websearch/answer/29508][Google検索ヘルプ: 使用・共有できる画像を探す]]
+- [[https://creativecommons.org/cc-licenses/][Creative Commons: CCライセンス]]
+
+* CSSで見た目を変える
+
+HTMLは、見出し、段落、リスト、画像など、文章の構造を書くことに専念します。
+文字の色、大きさ、余白など、見た目を変えるときにはCSSを使います。
+
+HTMLの =head= の中へ、次の =style= タグを加えてください。
+
+#+begin_src html
+<style>
+  body {
+    max-width: 700px;
+    margin: 40px auto;
+    font-family: sans-serif;
+    line-height: 1.7;
+  }
+
+  h1 {
+    color: navy;
+    border-bottom: 3px solid skyblue;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+</style>
+#+end_src
+
+=head= 全体は、たとえば次のようになります。
+
+#+begin_src html
+<head>
+  <meta charset="UTF-8">
+  <title>はじめてのウェブページ</title>
+  <style>
+    body {
+      max-width: 700px;
+      margin: 40px auto;
+      font-family: sans-serif;
+      line-height: 1.7;
+    }
+
+    h1 {
+      color: navy;
+      border-bottom: 3px solid skyblue;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+#+end_src
+
+保存してブラウザを再読み込みすると、ページの見た目が変わります。
+
+CSSは、次の形で書きます。
+
+#+begin_src css
+何を変えるか {
+  どの性質を: どの値にするか;
+}
+#+end_src
+
+たとえば、次のCSSは =h1= タグの文字色を紺色にします。
+
+#+begin_src css
+h1 {
+  color: navy;
+}
+#+end_src
+
+=h1= は、どのHTML要素を選ぶかを表します。
+=color= は文字色という性質、 =navy= は紺色という値です。
+
+先ほどのCSSには、次の指定もあります。
+
+| CSS | 意味 |
+|-----+------|
+| =max-width: 700px= | 本文が横に広がりすぎないようにする |
+| =margin: 40px auto= | 上下に余白を作り、本文を左右中央に置く |
+| =font-family: sans-serif= | 文字をゴシック体で表示する |
+| =line-height: 1.7= | 行と行の間隔を広げる |
+| =border-bottom= | 見出しの下に線を引く |
+| =border-radius= | 画像の角を丸くする |
+
+HTMLが文章の構造、CSSが見た目を担当します。
+役割を分けることで、文章の意味を保ったまま、ページ全体のデザインを変更しやすくなります。
+
+* JavaScriptを始める
+
+HTMLで内容と構造を書き、CSSで見た目を変えました。
+JavaScriptを使うと、計算したり、利用者の操作に反応したり、ページの内容を途中で変えたりできます。
+
+まずはファイルへ書く前に、ブラウザの「コンソール」でJavaScriptを少しだけ試します。
+
+** 開発者ツールのコンソールを開く
+
+ウェブブラウザには、ウェブページを作る人のための「開発者ツール」があります。
+コンソールは、その中でJavaScriptを一行ずつ実行できる場所です。
+
+Chrome、Edge、Firefoxでは、ページを右クリックして「検証」または「調査」を選び、開発者ツールの「Console」または「コンソール」を開きます。
+
+Safariでは、最初にSafariの設定で開発者向け機能を有効にする必要がある場合があります。
+設定の「詳細」または「開発者」から開発メニューを表示し、「開発」メニューの「JavaScriptコンソールを表示」を選びます。
+Safariのバージョンによって項目名が少し異なります。
+
+コンソールの = >= の右側へ、次の式を入力してEnterキーを押してください。
+
+#+begin_src javascript
+1 + 2
+#+end_src
+
+=3= と表示されます。
+JavaScriptが計算をして、その結果を返しました。
+
+次の式も試してみましょう。
+
+#+begin_src javascript
+10 * 5
+#+end_src
+
+#+begin_src javascript
+"こんにちは" + "世界"
+#+end_src
+
+=*= は掛け算です。
+=+= は数を足すだけでなく、文字列と文字列をつなぐこともできます。
+文字は =""= で囲みます。
+
+次に、値へ名前を付けます。
+
+#+begin_src javascript
+let number = 10;
+#+end_src
+
+#+begin_src javascript
+number + 5
+#+end_src
+
+=let= を使うと、値を覚えておくための「変数」を作れます。
+ここでは =number= という名前の変数に、数の =10= を入れました。
+
+#+begin_quote
+コンソールに警告が表示され、文字を貼り付けられない場合があります。
+これは、意味の分からないプログラムを他人の指示で実行してしまうことを防ぐためです。
+この文書の短い式は、コピーせず自分で入力してください。
+#+end_quote
+
+** JavaScriptをHTMLに書く
+
+コンソールに書いた内容は、ページを閉じると残りません。
+今度はJavaScriptを =index.html= に書いて、保存できるプログラムにします。
+
+=body= の終わり、 =</body>= の直前へ次の =script= タグを加えてください。
+
+#+begin_src html
+<script>
+  console.log("JavaScriptが動きました");
+</script>
+#+end_src
+
+保存してブラウザを再読み込みし、開発者ツールのコンソールを見ます。
+「JavaScriptが動きました」と表示されます。
+
+=script= タグの中にはJavaScriptを書けます。
+=console.log()= は、丸括弧の中の値をコンソールへ表示する命令です。
+
+* JavaScriptでHTMLを書き換える
+
+JavaScriptからHTMLを調べたり、書き換えたりするための仕組みをDOMと呼びます。
+DOMは /Document Object Model/ の略です。
+
+まず、 =body= の中へ次のHTMLを加えます。
+
+#+begin_src html
+<h2>JavaScriptの実験</h2>
+<button id="messageButton">押してください</button>
+<p id="message">ここに結果を表示します。</p>
+#+end_src
+
+=button= は、押すことのできるボタンです。
+=id= 属性は、HTMLの要素に名前を付けるために使います。
+同じページの中で、一つの =id= は一度だけ使います。
+
+次に、先ほどの =script= の中を次のように書き換えます。
+
+#+begin_src javascript
+const button = document.getElementById("messageButton");
+const message = document.getElementById("message");
+
+button.addEventListener("click", function () {
+  message.textContent = "ボタンが押されました！";
+});
+#+end_src
+
+保存してブラウザを再読み込みし、「押してください」ボタンを押してください。
+「ここに結果を表示します。」という文章が、「ボタンが押されました！」に変わります。
+
+プログラムを一行ずつ見てみましょう。
+
+- =document.getElementById("messageButton")= は、 =id= が =messageButton= のHTML要素を探します。
+- =const button = ...= は、見つけた要素に =button= という名前を付けます。
+- =addEventListener("click", ...)= は、クリックされたときに行う処理を登録します。
+- =function () { ... }= の波括弧の中に、クリックされたときの処理を書きます。
+- =message.textContent = ...= は、HTML要素の文章を書き換えます。
+
+最初にブラウザが表示しただけのHTMLは静的、つまりそのままでは変化しないページでした。
+いま作ったページは、利用者がボタンを押すと内容が変わります。
+JavaScriptによって、静的なHTMLが動的なウェブページになりました。
+
+* ボタンを押すたびに数を計算する
+
+もう少しプログラムらしい例として、漸化式を計算します。
+
+ここでは、最初の数を \(a_0 = 1\) とし、次の規則で数を作ります。
+
+\[
+a_{n+1} = 2a_n + 1
+\]
+
+今の数を2倍して、1を足すと、次の数になります。
+
+#+begin_example
+a₀ = 1
+a₁ = 2 × 1 + 1 = 3
+a₂ = 2 × 3 + 1 = 7
+a₃ = 2 × 7 + 1 = 15
+#+end_example
+
+=body= の中へ、次のHTMLを加えます。
+
+#+begin_src html
+<h2>漸化式を計算する</h2>
+<p>a<sub>n+1</sub> = 2a<sub>n</sub> + 1</p>
+<button id="nextButton">次の項を計算する</button>
+<p id="sequenceResult">a<sub>0</sub> = 1</p>
+#+end_src
+
+=sub= は、文字を下付きで表示するタグです。
+
+=script= の中へ、次のJavaScriptを加えます。
+
+#+begin_src javascript
+let n = 0;
+let a = 1;
+
+const nextButton = document.getElementById("nextButton");
+const sequenceResult = document.getElementById("sequenceResult");
+
+nextButton.addEventListener("click", function () {
+  a = 2 * a + 1;
+  n = n + 1;
+  sequenceResult.textContent = "a" + n + " = " + a;
+});
+#+end_src
+
+ボタンを押すたびに、 =a1 = 3= 、 =a2 = 7= 、 =a3 = 15= と表示が変わります。
+
+=a= と =n= は、計算の途中の値を覚えておく変数です。
+ボタンが押されるたびに、次の3つの処理を行います。
+
+1. =a = 2 * a + 1= で次の項を計算する
+2. =n = n + 1= で項の番号を一つ増やす
+3. =textContent= で計算結果をページに表示する
+
+数学では ~=~ は「等しい」という意味です。
+JavaScriptで ~=~ を一つだけ書いた場合は、右側の値を左側の変数へ入れるという意味です。
+たとえば =n = n + 1= は、現在の =n= に1を足し、その結果を新しい =n= にする命令です。
+
+* Canvasに絵を描く
+
+HTMLの =canvas= は、JavaScriptを使って図形や絵を描くための領域です。
+英語のcanvasは、絵を描くための「画布」という意味です。
+
+ここでは、マウスやトラックパッドを使って線を描ける小さなお絵描きページを作ります。
+
+=body= の中へ、次のHTMLを加えます。
+
+#+begin_src html
+<h2>Canvasでお絵描き</h2>
+<canvas id="drawingCanvas" width="500" height="300"></canvas>
+#+end_src
+
+=style= の中へ、Canvasの枠線を加えます。
+
+#+begin_src css
+#drawingCanvas {
+  border: 1px solid black;
+  touch-action: none;
+}
+#+end_src
+
+=#drawingCanvas= は、 =id="drawingCanvas"= の要素を選ぶCSSの書き方です。
+
+次に、 =script= の中へJavaScriptを加えます。
+
+#+begin_src javascript
+const canvas = document.getElementById("drawingCanvas");
+const context = canvas.getContext("2d");
+
+let drawing = false;
+
+context.lineWidth = 5;
+context.lineCap = "round";
+context.strokeStyle = "royalblue";
+
+canvas.addEventListener("pointerdown", function (event) {
+  drawing = true;
+  context.beginPath();
+  context.moveTo(event.offsetX, event.offsetY);
+});
+
+canvas.addEventListener("pointermove", function (event) {
+  if (drawing) {
+    context.lineTo(event.offsetX, event.offsetY);
+    context.stroke();
+  }
+});
+
+window.addEventListener("pointerup", function () {
+  drawing = false;
+});
+#+end_src
+
+保存してブラウザを再読み込みします。
+Canvasの上でマウスのボタンを押したまま動かすと、青い線を描けます。
+
+Canvasの線の描き方は、紙に筆で線を描く動作によく似ています。
+
+1. =beginPath()= で新しい線を描き始める
+2. =moveTo()= で筆をCanvasの上へ置く
+3. =lineTo()= で筆を引きずって次の場所へ移動する
+4. =stroke()= で通った経路を実際の線として描く
+5. マウスのボタンを離したら、描くのをやめる
+
+=pointerdown= はCanvasの上で押したとき、 =pointermove= はポインターを動かしたとき、 =pointerup= は離したときに発生します。
+
+** 線の太さと色を変える
+
+次の2行の値を変えてみましょう。
+
+#+begin_src javascript
+context.lineWidth = 10;
+context.strokeStyle = "crimson";
+#+end_src
+
+=lineWidth= は線の太さです。
+=strokeStyle= は線の色です。
+
+** 色を塗りつぶす
+
+Canvas全体を薄い黄色で塗りつぶすには、 =context= を作った直後へ次の2行を加えます。
+
+#+begin_src javascript
+context.fillStyle = "lightyellow";
+context.fillRect(0, 0, canvas.width, canvas.height);
+#+end_src
+
+=fillStyle= で塗る色を決め、 =fillRect()= で長方形を塗ります。
+4つの数は順に、左上のx座標、左上のy座標、幅、高さです。
+
+Canvasでは左上が \((0, 0)\) です。
+右へ進むとx座標が増え、下へ進むとy座標が増えます。
+
+* タイマーでアニメーションを作る
+
+最後に、JavaScriptのタイマーを使ってCanvasの絵を少しずつ動かします。
+
+先ほどのお絵描き用Canvasとは別に、次のCanvasを =body= へ加えます。
+
+#+begin_src html
+<h2>タイマーでアニメーション</h2>
+<canvas id="animationCanvas" width="500" height="100"></canvas>
+#+end_src
+
+=style= には枠線を加えます。
+
+#+begin_src css
+#animationCanvas {
+  border: 1px solid black;
+}
+#+end_src
+
+=script= の中へ、次のJavaScriptを加えます。
+
+#+begin_src javascript
+const animationCanvas = document.getElementById("animationCanvas");
+const animationContext = animationCanvas.getContext("2d");
+
+let x = 0;
+
+setInterval(function () {
+  animationContext.clearRect(
+    0,
+    0,
+    animationCanvas.width,
+    animationCanvas.height
+  );
+
+  animationContext.fillStyle = "tomato";
+  animationContext.fillRect(x, 30, 40, 40);
+
+  x = x + 2;
+
+  if (x > animationCanvas.width) {
+    x = -40;
+  }
+}, 20);
+#+end_src
+
+保存してブラウザを再読み込みすると、赤い四角形が左から右へ動きます。
+
+=setInterval()= は、決められた時間ごとに同じ処理を繰り返すタイマーです。
+最後の =20= は、20ミリ秒ごとに処理するという意味です。
+1000ミリ秒が1秒です。
+
+タイマーが動くたびに、次の処理を行っています。
+
+1. =clearRect()= で前に描いた絵を消す
+2. =fillRect()= で現在の =x= の位置に四角形を描く
+3. =x = x + 2= で次に描く位置を右へ動かす
+4. 右端を越えたら、左端へ戻す
+
+実際には、一枚の絵が動いているのではありません。
+少しずつ位置の違う絵をすばやく描き直しているため、動いているように見えます。
+これがアニメーションの基本的な仕組みです。
+
+* ここまでに作ったもの
+
+ここまでで、次のことを体験しました。
+
+- HTMLで見出し、段落、リスト、リンク、画像を作る
+- CSSでページの見た目を変える
+- コンソールでJavaScriptを実行する
+- JavaScriptをHTMLファイルに保存する
+- ボタンが押されたことを受け取り、DOMを書き換える
+- 変数を使って漸化式を計算する
+- Canvasに線や長方形を描く
+- タイマーを使って図形をアニメーションさせる
+
+最初に作ったものは、文字を表示するだけの静的なHTMLでした。
+そこへCSSとJavaScriptを加えることで、操作に反応し、計算し、絵が動くウェブページになりました。
