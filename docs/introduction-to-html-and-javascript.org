@@ -1,0 +1,375 @@
+#+TITLE: HTMLとJavaScript超入門
+#+SUBTITLE: version 0.0.0
+#+AUTHOR: 北䑓如法
+#+LANGUAGE: ja
+#+OPTIONS: toc:2
+
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \definecolor{codebg}{RGB}{245,245,245}
+#+LATEX_HEADER: \definecolor{codeframe}{RGB}{180,180,180}
+#+LATEX_HEADER: \setminted{bgcolor=codebg,bgcolorpadding=3mm,frame=single,framesep=3mm,rulecolor=\color{codeframe},breaklines,autogobble,fontsize=\small}
+
+#+BIND: org-latex-src-block-backend minted
+#+BIND: org-html-htmlize-output-type css
+
+#+HTML_HEAD: <style type="text/css">
+#+HTML_HEAD: :root {
+#+HTML_HEAD:   --code-bg-color: #eef2f2;
+#+HTML_HEAD: }
+#+HTML_HEAD: body {
+#+HTML_HEAD:   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+#+HTML_HEAD:   font-size: 16px;
+#+HTML_HEAD:   line-height: 1.5;
+#+HTML_HEAD: }
+#+HTML_HEAD: blockquote {
+#+HTML_HEAD:   position: relative;
+#+HTML_HEAD:   margin: 1.5em 0;
+#+HTML_HEAD:   padding: 1em 1.5em 1em 2.2em;
+#+HTML_HEAD:   background-color: #f7f9fa;
+#+HTML_HEAD:   border-radius: 4px;
+#+HTML_HEAD: }
+#+HTML_HEAD: blockquote::before {
+#+HTML_HEAD:   content: "";
+#+HTML_HEAD:   position: absolute;
+#+HTML_HEAD:   top: 0;
+#+HTML_HEAD:   bottom: 0;
+#+HTML_HEAD:   left: 0;
+#+HTML_HEAD:   width: 6px;
+#+HTML_HEAD:   background-color: #cbd5e1;
+#+HTML_HEAD:   border-radius: 4px 0 0 4px;
+#+HTML_HEAD: }
+#+HTML_HEAD: code {
+#+HTML_HEAD:   padding: 0.1em 0.25em;
+#+HTML_HEAD:   background-color: var(--code-bg-color);
+#+HTML_HEAD:   border-radius: 3px;
+#+HTML_HEAD:   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+#+HTML_HEAD:   font-size: 85%;
+#+HTML_HEAD: }
+#+HTML_HEAD: pre.src {
+#+HTML_HEAD:   padding: 0.8em;
+#+HTML_HEAD:   overflow: auto;
+#+HTML_HEAD:   background-color: var(--code-bg-color);
+#+HTML_HEAD:   border: 1px solid #ddd;
+#+HTML_HEAD:   border-radius: 4px;
+#+HTML_HEAD: }
+#+HTML_HEAD: .src code {
+#+HTML_HEAD:   padding: 0;
+#+HTML_HEAD: }
+#+HTML_HEAD: table {
+#+HTML_HEAD:   border-collapse: collapse;
+#+HTML_HEAD:   border-bottom: 1px solid #444;
+#+HTML_HEAD: }
+#+HTML_HEAD: th {
+#+HTML_HEAD:   border-top: 1px solid #444;
+#+HTML_HEAD:   border-bottom: 1px solid #444;
+#+HTML_HEAD: }
+#+HTML_HEAD: th,
+#+HTML_HEAD: td {
+#+HTML_HEAD:   padding: 0.3em 0.5em;
+#+HTML_HEAD: }
+#+HTML_HEAD: .org-keyword {
+#+HTML_HEAD:   color: #5a32a3;
+#+HTML_HEAD:   font-weight: 600;
+#+HTML_HEAD: }
+#+HTML_HEAD: .org-builtin {
+#+HTML_HEAD:   color: #005cc5;
+#+HTML_HEAD: }
+#+HTML_HEAD: .org-function-name {
+#+HTML_HEAD:   color: #6f42c1;
+#+HTML_HEAD: }
+#+HTML_HEAD: .org-variable-name {
+#+HTML_HEAD:   color: #24292e;
+#+HTML_HEAD: }
+#+HTML_HEAD: .org-string {
+#+HTML_HEAD:   color: #032f62;
+#+HTML_HEAD: }
+#+HTML_HEAD: .org-comment,
+#+HTML_HEAD: .org-comment-delimiter {
+#+HTML_HEAD:   color: #6a737d;
+#+HTML_HEAD:   font-style: italic;
+#+HTML_HEAD: }
+#+HTML_HEAD: .org-type,
+#+HTML_HEAD: .org-operator {
+#+HTML_HEAD:   color: #d73a49;
+#+HTML_HEAD: }
+#+HTML_HEAD: </style>
+
+* はじめに
+
+この文書は、プログラミングを一度もしたことがない人のための入門です。
+説明を読むだけではなく、自分のパソコンを実際に操作しながら進めます。
+
+対象にするパソコンは、次の2種類です。
+
+- Mac
+- Windows
+
+画面の見た目やキーの名前が少し違うため、操作が異なるところでは両方の手順を説明します。
+
+** 最初のプログラミング言語にJavaScriptを選ぶ理由
+
+この文書では、JavaScriptというプログラミング言語を学びます。
+
+JavaScriptは、ウェブブラウザで動かすことができます。
+MacにはSafari、WindowsにはMicrosoft Edgeが最初から入っています。
+どちらのブラウザにもJavaScriptを実行する機能があるため、JavaScriptを動かすための特別なソフトウェアを追加でインストールする必要はありません。
+
+ただし、いきなりJavaScriptを書くことはしません。
+先にHTMLを学びます。
+
+HTMLは、ウェブページの内容や構造を書くための言語です。
+ブラウザでJavaScriptを動かすときには、JavaScriptを読み込むHTMLファイルも書くことになります。
+それならば、先にHTMLの基本を知っておくほうが自然です。
+
+この文書では、次の順番で進めます。
+
+1. HTMLを書く
+2. HTMLをブラウザで表示する
+3. HTMLにJavaScriptを加える
+4. JavaScriptで表示や動きを変える
+
+* 準備
+
+プログラムを書くために、Visual Studio Codeをインストールします。
+Visual Studio Codeは、文章やプログラムを書くためのソフトウェアです。
+長い名前なので、以降は「VS Code」と呼びます。
+
+この文書で新しくインストールするものは、VS Codeだけです。
+ウェブブラウザは、パソコンに最初から入っているSafariまたはMicrosoft Edgeを使います。
+普段使っているGoogle ChromeやFirefoxなどがあれば、それを使ってもかまいません。
+
+** VS Codeをインストールする
+
+まず、VS Codeの公式ダウンロードページを開きます。
+
+- [[https://code.visualstudio.com/download][Visual Studio Codeのダウンロードページ]]
+
+*** Macの場合
+
+1. macOS用のVS Codeをダウンロードします。
+2. ダウンロードした =.dmg= ファイルを開きます。
+3. =Visual Studio Code.app= を =Applications= フォルダへドラッグします。
+4. =Applications= フォルダに入ったVisual Studio Codeを開きます。
+
+*** Windowsの場合
+
+1. Windows用の「User Installer」をダウンロードします。
+2. ダウンロードした =VSCodeUserSetup= から始まる名前の =.exe= ファイルを開きます。
+3. 画面の案内に従ってインストールします。
+4. インストールが終わったら、Visual Studio Codeを開きます。
+
+#+begin_quote
+学校や職場から借りているパソコンでは、ソフトウェアのインストールが制限されていることがあります。
+インストールできない場合は、パソコンの管理者や先生に確認してください。
+#+end_quote
+
+* 作業用のフォルダを作る
+
+これから作るファイルをまとめて置くために、専用のフォルダを1つ作ります。
+ここでは、フォルダの名前を =html-javascript= とします。
+
+保存場所は、あとで自分が見つけられる場所にしてください。
+最初は「書類」または「ドキュメント」の中がおすすめです。
+
+#+begin_quote
+「ファイル」と「フォルダ」の違いがまだよく分からなくても、心配はいりません。
+
+ファイルは、文章や画像などのデータを保存したものです。
+フォルダは、複数のファイルをまとめて入れておく場所です。
+紙の書類がファイル、それをまとめる箱がフォルダだと考えるとよいでしょう。
+
+これからは「どのフォルダの中に、どのファイルを保存したか」が大切になります。
+保存場所が分からなくなったら、そのまま進まずに一度確認しましょう。
+#+end_quote
+
+** Macの場合
+
+1. Finderを開きます。
+2. 「書類」フォルダを開きます。
+3. メニューから「ファイル」→「新規フォルダ」を選びます。
+4. フォルダの名前を =html-javascript= にします。
+
+** Windowsの場合
+
+1. エクスプローラーを開きます。
+2. 「ドキュメント」フォルダを開きます。
+3. 「新規作成」→「フォルダー」を選びます。
+4. フォルダの名前を =html-javascript= にします。
+
+** VS Codeでフォルダを開く
+
+1. VS Codeを開きます。
+2. メニューから「ファイル」→「フォルダーを開く」を選びます。
+3. 先ほど作った =html-javascript= フォルダを選びます。
+4. 「開く」または「フォルダーの選択」を押します。
+
+「このフォルダー内のファイルの作成者を信頼しますか」と尋ねられた場合は、自分で作ったフォルダなので信頼してかまいません。
+
+VS Codeの左側に =html-javascript= というフォルダ名が表示されたら、準備は完了です。
+
+* 最初のファイルを作る
+
+まずは、HTMLのタグを使わずに、ただの文字を書いてブラウザで表示してみましょう。
+
+** =index.html= を作る
+
+1. VS Codeの左側にある =html-javascript= の右に表示される「新しいファイル」のボタンを押します。
+2. ファイル名に =index.html= と入力して、Enterキーを押します。
+3. 右側に表示された編集画面へ、次の1行を入力します。
+
+#+begin_src text
+はじめてのウェブページ
+#+end_src
+
+4. ファイルを保存します。
+
+保存のキーボードショートカットは次のとおりです。
+
+| 操作 | Mac | Windows |
+|------+-----+---------|
+| 保存 | =Command + S= | =Ctrl + S= |
+
+メニューから「ファイル」→「保存」を選んでも同じですが、保存は何度も行うため、ショートカットを覚えると便利です。
+
+#+begin_quote
+ファイル名は、半角の英字で正確に =index.html= としてください。
+=index.html.txt= や =index.htm= は別の名前です。
+
+VS Codeの中で新しいファイルを作れば、Windowsで拡張子が隠れている場合にも名前を確認しやすくなります。
+#+end_quote
+
+** ブラウザで開く
+
+次に、作ったファイルをウェブブラウザで開きます。
+
+*** Macの場合
+
+1. Finderで =html-javascript= フォルダを開きます。
+2. =index.html= を右クリックします。
+3. 「このアプリケーションで開く」からSafariを選びます。
+
+*** Windowsの場合
+
+1. エクスプローラーで =html-javascript= フォルダを開きます。
+2. =index.html= を右クリックします。
+3. 「プログラムから開く」からMicrosoft Edgeを選びます。
+
+ブラウザに「はじめてのウェブページ」と表示されれば成功です。
+
+この時点では、ファイルの中にHTMLのタグを書いていません。
+ブラウザは、ただの文字だけが書かれたファイルでも、その文字を画面に表示してくれます。
+
+* HTMLを書いてみる
+
+今度は、同じ文字をHTMLで書きます。
+
+VS Codeに戻り、先ほどの1行を次のように書き換えてください。
+
+#+begin_src html
+<h1>はじめてのウェブページ</h1>
+#+end_src
+
+=<h1>= と =</h1>= で文字を囲みました。
+このような印を「タグ」と呼びます。
+=h1= は、その文字がページの最も大きな見出しであることを表します。
+
+ファイルを保存してからブラウザへ戻り、ページを再読み込みしてください。
+先ほどより大きな見出しとして表示されます。
+
+次に、見出しの下へ文章を加えます。
+
+#+begin_src html
+<h1>はじめてのウェブページ</h1>
+<p>HTMLを勉強しています。</p>
+#+end_src
+
+=p= は、ひとまとまりの文章、つまり段落を表すタグです。
+
+もう一度保存し、ブラウザを再読み込みしてください。
+見出しの下に文章が表示されます。
+
+** 小さなHTMLファイルを完成させる
+
+最後に、ブラウザがファイルの内容を正しく理解しやすいように、HTML文書として必要な構造を加えます。
+今書いている内容を、次の内容に置き換えてください。
+
+#+begin_src html
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>はじめてのウェブページ</title>
+</head>
+<body>
+  <h1>はじめてのウェブページ</h1>
+  <p>HTMLを勉強しています。</p>
+</body>
+</html>
+#+end_src
+
+少し長くなりましたが、画面に表示される部分は先ほどとほとんど変わりません。
+それぞれの行には、次の役割があります。
+
+| 記述 | 役割 |
+|------+------|
+| =<!doctype html>= | このファイルがHTML文書であることをブラウザに示す |
+| =<html lang="ja">= | HTML文書全体の始まりと、内容が日本語であることを示す |
+| =<head>= | ページについての情報を書く部分 |
+| =<meta charset="UTF-8">= | 日本語などの文字を正しく扱うための設定 |
+| =<title>= | ブラウザのタブなどに表示されるページ名 |
+| =<body>= | ブラウザの画面に表示する内容を書く部分 |
+
+=<html>= 、 =<head>= 、 =<body>= には、それぞれ対応する =</html>= 、 =</head>= 、 =</body>= があります。
+多くのHTMLタグは、開始を表すタグと終了を表すタグを組み合わせて使います。
+
+ファイルを保存し、ブラウザを再読み込みして、見出しと文章が表示されることを確認してください。
+ブラウザのタブには「はじめてのウェブページ」と表示されます。
+
+* 書く、保存する、確認する
+
+HTMLやJavaScriptを書くときは、次の作業を何度も繰り返します。
+
+1. VS Codeでファイルを書く
+2. ファイルを保存する
+3. ブラウザへ切り替える
+4. ページを再読み込みする
+5. 表示を確認する
+
+次のショートカットを使うと、この繰り返しをすばやく行えます。
+
+| 操作 | Mac | Windows |
+|------+-----+---------|
+| 保存 | =Command + S= | =Ctrl + S= |
+| アプリの切り替え | =Command + Tab= | =Alt + Tab= |
+| ブラウザの再読み込み | =Command + R= | =Ctrl + R= |
+
+たとえばMacでは、次の順番です。
+
+1. VS CodeでHTMLを書き換える
+2. =Command + S= で保存する
+3. =Command + Tab= でブラウザへ切り替える
+4. =Command + R= で再読み込みする
+
+Windowsでは、次の順番です。
+
+1. VS CodeでHTMLを書き換える
+2. =Ctrl + S= で保存する
+3. =Alt + Tab= でブラウザへ切り替える
+4. =Ctrl + R= で再読み込みする
+
+表示が変わらないときは、まずファイルを保存したか確認してください。
+VS Codeで書き換えただけでは、ブラウザが開いているファイルの内容は変わりません。
+
+この「書く、保存する、ブラウザで確認する」という流れは、この先JavaScriptを書くときにも使います。
+
+** 次へ進む前の確認
+
+次のことができれば、HTMLの最初の準備は完了です。
+
+- VS Codeで =html-javascript= フォルダを開ける
+- =index.html= を編集して保存できる
+- =index.html= をブラウザで開ける
+- HTMLを書き換えたあと、ブラウザを再読み込みして変化を確認できる
+
+次は、このHTMLファイルにJavaScriptを加えて、ブラウザにプログラムを実行させます。
