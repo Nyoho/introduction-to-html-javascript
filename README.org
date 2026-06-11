@@ -1,0 +1,9 @@
+#+TITLE: HTMLとJavaScript超入門
+
+プログラミングを一度もしたことがない人のための入門教材です。
+MacまたはWindowsを実際に操作しながら、HTML、CSS、JavaScriptを順番に学びます。
+
+- [[file:docs/introduction-to-html-and-javascript.org][教材を読む]]
+
+文字だけのページから始めて、ボタン、計算、Canvas、お絵描き、アニメーションまで作ります。
+書いて、保存して、ブラウザで確かめながら、ご機嫌なウェブページを作りましょう。
