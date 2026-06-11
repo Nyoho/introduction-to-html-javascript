@@ -1,4 +1,10 @@
 *.tex
 *.html
 *.dvi
+*.out
+*.aux
+*.synctex.gz
+*.toc
+docs/*.pdf
+docs/*.log
 _minted/
